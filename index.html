@@ -3,101 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eine kleine Überraschung</title>
+    <title>Wir heiraten!</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    
     <style>
-        /* Modernes Design & Schriften */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #fdf6f0;
+        /* --- GRUNDEINSTELLUNGEN --- */
+        :root {
+            --text-font: 'Montserrat', sans-serif; /* Für normalen Text */
+            --script-font: 'Great Vibes', cursive; /* Für die Namen */
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: var(--text-font);
             color: #4a4a4a;
+            scroll-behavior: smooth; /* Sorgt für weiches Scrollen, wenn man auf die Links klickt */
+        }
+
+        /* --- STARTBEREICH (HERO) --- */
+        .hero {
+            position: relative;
+            height: 100vh; /* 100% der Bildschirmhöhe */
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
             text-align: center;
+            color: white;
+            
+            /* HIER DEIN BILD EINFÜGEN */
+            /* Ersetze "DEIN_BILD.jpg" durch den Namen oder Link deines Bildes */
+            /* Der linear-gradient sorgt für den leicht rötlich-dunklen Schleier, damit der Text lesbar bleibt */
+            background: linear-gradient(rgba(105, 80, 80, 0.4), rgba(105, 80, 80, 0.6)), 
+                        url('DEIN_BILD.jpg') no-repeat center center/cover;
+            
+            background-color: #8b7369; /* Platzhalter-Farbe, falls das Bild noch fehlt */
         }
 
-        .container {
-            max-width: 600px;
-            padding: 20px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        .hero-content {
+            margin-top: -50px; /* Schiebt den Text minimal nach oben für perfekte Optik */
         }
 
-        h1 { color: #d4a373; }
-        
-        /* Das Geschenk-Paket */
-        #gift-box {
-            font-size: 80px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            margin: 30px 0;
+        .subtitle {
+            font-size: 1rem;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
         }
 
-        #gift-box:hover {
-            transform: scale(1.1);
-        }
-
-        /* Versteckter Inhalt */
-        #surprise {
-            display: none;
-            animation: fadeIn 1.5s;
+        .title {
+            font-family: var(--script-font);
+            font-size: 6rem;
+            margin: 0;
+            font-weight: normal;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         .details {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #bc6c25;
-            border: 2px dashed #d4a373;
-            padding: 15px;
-            margin-top: 20px;
+            font-size: 1rem;
+            margin-top: 15px;
+            line-height: 1.6;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        /* --- NAVIGATION --- */
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95); /* Fast weißer Hintergrund */
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
         }
 
-        button {
-            background-color: #d4a373;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
+        .bottom-nav a {
+            text-decoration: none;
+            color: #666;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        .bottom-nav a:hover {
+            color: #a37c68; /* Farbe ändert sich beim rüberfahren mit der Maus */
+            text-decoration: underline;
+        }
+
+        /* --- INHALTSBEREICHE ZUM SCROLLEN --- */
+        .section {
+            padding: 100px 20px;
+            text-align: center;
+            min-height: 60vh;
+        }
+
+        .bg-light {
+            background-color: #f9f6f4;
+        }
+
+        .section h2 {
+            font-family: var(--script-font);
+            font-size: 4rem;
+            color: #a37c68;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: normal;
+        }
+
+        .section p {
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* --- ANPASSUNG FÜR HANDYS --- */
+        @media (max-width: 768px) {
+            .title { font-size: 4rem; }
+            .bottom-nav { gap: 15px; padding: 15px; }
+            .bottom-nav a { font-size: 0.75rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Alles Liebe zur Hochzeit!</h1>
-        <p>Wir haben eine Kleinigkeit für euch vorbereitet...</p>
-        
-        <!-- Das Paket-Icon -->
-        <div id="gift-box" onclick="revealGift()">🎁</div>
-
-        <div id="surprise">
-            <p>Euer Geschenk ist:</p>
-            <div class="details">
-                ✨ EIN WOCHENENDE IN PARIS ✨
-            </div>
-            <p>Wir freuen uns riesig mit euch!</p>
+    <header class="hero" id="home">
+        <div class="hero-content">
+            <p class="subtitle">Wir freuen uns auf unsere Hochzeit</p>
+            
+            <h1 class="title">Lisa & Tobi</h1>
+            
+            <p class="details">
+                Samstag, 13. Mai 2026<br>
+                Musterlocation, Musterstadt
+            </p>
         </div>
 
-        <p><small>(Klicke auf das Paket, um es zu öffnen)</small></p>
-    </div>
+        <nav class="bottom-nav">
+            <a href="#home">Home</a>
+            <a href="#ablauf">Ablauf</a>
+            <a href="#location">Location</a>
+            <a href="#ueber-uns">Über uns</a>
+            <a href="#rsvp">RSVP</a>
+        </nav>
+    </header>
 
-    <script>
-        function revealGift() {
-            // Verstecke das Paket und zeige die Überraschung
-            document.getElementById('gift-box').style.display = 'none';
-            document.getElementById('surprise').style.display = 'block';
-        }
-    </script>
+    <section id="ablauf" class="section">
+        <h2>Der Ablauf</h2>
+        <p>14:00 Uhr - Kirchliche Trauung<br>
+           15:30 Uhr - Sektempfang an der Location<br>
+           18:00 Uhr - Abendessen<br>
+           20:00 Uhr - Party</p>
+    </section>
+
+    <section id="location" class="section bg-light">
+        <h2>Die Location</h2>
+        <p>Hier könnt ihr die genaue Adresse eintragen, Hinweise zum Parken geben oder erklären, wo Gäste übernachten können.</p>
+    </section>
+    
+    <section id="rsvp" class="section">
+        <h2>Zusage (RSVP)</h2>
+        <p>Wir bitten um eure Zusage bis zum 01. März 2026.<br>
+        <i>(Hier könntest du später einen Link zu Google Forms oder Tally.so einfügen)</i></p>
+    </section>
 
 </body>
 </html>
