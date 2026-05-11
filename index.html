@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eine kleine Überraschung</title>
+    <style>
+        /* Modernes Design & Schriften */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fdf6f0;
+            color: #4a4a4a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        h1 { color: #d4a373; }
+        
+        /* Das Geschenk-Paket */
+        #gift-box {
+            font-size: 80px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            margin: 30px 0;
+        }
+
+        #gift-box:hover {
+            transform: scale(1.1);
+        }
+
+        /* Versteckter Inhalt */
+        #surprise {
+            display: none;
+            animation: fadeIn 1.5s;
+        }
+
+        .details {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #bc6c25;
+            border: 2px dashed #d4a373;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        button {
+            background-color: #d4a373;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Alles Liebe zur Hochzeit!</h1>
+        <p>Wir haben eine Kleinigkeit für euch vorbereitet...</p>
+        
+        <!-- Das Paket-Icon -->
+        <div id="gift-box" onclick="revealGift()">🎁</div>
+
+        <div id="surprise">
+            <p>Euer Geschenk ist:</p>
+            <div class="details">
+                ✨ EIN WOCHENENDE IN PARIS ✨
+            </div>
+            <p>Wir freuen uns riesig mit euch!</p>
+        </div>
+
+        <p><small>(Klicke auf das Paket, um es zu öffnen)</small></p>
+    </div>
+
+    <script>
+        function revealGift() {
+            // Verstecke das Paket und zeige die Überraschung
+            document.getElementById('gift-box').style.display = 'none';
+            document.getElementById('surprise').style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>
