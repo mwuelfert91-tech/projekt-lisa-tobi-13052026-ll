@@ -12,7 +12,7 @@
             --text-font: 'Montserrat', sans-serif;
             --script-font: 'Great Vibes', cursive;
             --accent-color: #a37c68;
-            --editorial-bg: #d9b99b; 
+            --editorial-bg: #d9b99b; /* Der Erdton von der Vorlage */
         }
 
         body, html {
@@ -61,49 +61,54 @@
         .split-text { flex: 1; text-align: left; }
         .split-text h2 { font-family: var(--script-font); font-size: 4.5rem; color: var(--accent-color); font-weight: normal; margin-bottom: 20px; }
 
-        /* --- SECTION 3: EDITORIAL LOCATION --- */
+        /* --- SECTION 3: EDITORIAL LOCATION (KORRIGIERT) --- */
+        /* Dies ist der relative Container für den absoluten Z-Stack */
         .editorial-section {
             position: relative;
             display: flex;
-            height: 100vh; /* Fest auf Bildschirmhöhe für den Editorial-Look */
             width: 100%;
+            min-height: 100vh; /* Fest auf Bildschirmhöhe */
             overflow: hidden;
         }
 
-        /* Hintergrundschrift - Jetzt mit höherem Z-Index und besserer Sichtbarkeit */
+        /* Die riesige Überschrift im Hintergrund */
+        /* SIE MUSS AUF EINER TIEFEREN EBENE (z-index) LIEGEN */
         .editorial-bg-title {
             position: absolute;
-            top: 10%;
-            left: 5%;
+            top: 10%; /* Vertikale Positionierung */
+            left: 5%; /* Horizontale Positionierung */
             font-family: var(--script-font);
-            font-size: 15vw;
-            color: #3c5096;
-            opacity: 0.15; /* Dezent im Hintergrund */
-            z-index: 5; /* Über den Hintergrundflächen */
+            font-size: 15vw; /* Riesige, dynamische Größe */
+            color: #3c5096; /* Dezentes Blau/Grau wie in der Vorlage */
+            opacity: 0.25; /* Sichtbarkeit ein wenig erhöht für Schreibschrift */
+            z-index: 1; /* TIEFERER Z-INDEX: LIEGT IM HINTERGRUND */
             white-space: nowrap;
             pointer-events: none;
         }
 
+        /* Linke Spalte: Weiß & Fester Text */
         .editorial-left {
-            flex: 1;
+            width: 50%; /* 2-Spalten-Layout */
             background: white;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
-            padding: 0 5% 10% 10%;
-            z-index: 10; /* Inhalt über der Hintergrundschrift */
+            justify-content: flex-end; /* Text unten positionieren */
+            padding: 0 5% 10% 10%; /* Abstände */
+            /* Z-Index ist hier egal, da Flex-Items keine eigene Stapelreihenfolge haben */
         }
 
+        /* Der explizite Textinhalt MUSS EINE HÖHERE EBENE (z-index) HABEN */
         .editorial-left-content {
             max-width: 400px;
-            position: relative;
+            position: relative; /* WICHTIG FÜR Z-INDEX */
+            z-index: 10; /* HÖHERER Z-INDEX: LIEGT ÜBER DER BG-SCHRIFT */
         }
 
         .editorial-left-content h3 {
             text-transform: uppercase;
             letter-spacing: 2px;
             font-size: 0.9rem;
-            color: #3c5096;
+            color: #3c5096; /* Blau-Ton aus der Vorlage */
             margin-bottom: 20px;
         }
 
@@ -112,18 +117,24 @@
             font-size: 1rem;
         }
 
+        /* Rechte Spalte: Erdton & Karussell */
         .editorial-right {
-            flex: 1;
-            background-color: var(--editorial-bg);
-            position: relative;
-            z-index: 10;
+            width: 50%; /* 2-Spalten-Layout */
+            background-color: var(--editorial-bg); /* Erdton-Farbfläche */
+            position: relative; /* Container für Full-Bleed */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Z-Index ist hier egal, da Flex-Items keine eigene Stapelreihenfolge haben */
         }
 
-        /* Karussell Container: Jetzt 100% Breite und Höhe */
+        /* Karussell Container: Full-Bleed */
+        /* ER MUSS EINE HÖHERE EBENE (z-index) HABEN */
         .carousel-container {
-            width: 100%;
-            height: 100%;
-            position: relative;
+            width: 100%; /* 100% Breite der rechten Spalte */
+            height: 100%; /* 100% Höhe der rechten Spalte */
+            position: relative; /* WICHTIG FÜR Z-INDEX */
+            z-index: 10; /* HÖHERER Z-INDEX: LIEGT ÜBER DER BG-SCHRIFT */
             overflow: hidden;
         }
 
@@ -151,7 +162,7 @@
             padding: 0 20px;
             box-sizing: border-box;
             pointer-events: none;
-            z-index: 20;
+            z-index: 20; /* Buttons liegen über allem */
         }
 
         .carousel-btn {
@@ -179,8 +190,8 @@
         /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
             .editorial-section { flex-direction: column; height: auto; }
-            .editorial-left { padding: 150px 10% 60px 10%; min-height: 40vh; }
-            .editorial-right { height: 60vh; }
+            .editorial-left { width: 100%; padding: 150px 10% 60px 10%; min-height: 40vh; }
+            .editorial-right { width: 100%; height: 60vh; }
             .editorial-bg-title { font-size: 25vw; top: 50px; }
             .nav-wrapper { padding: 0 10px; }
         }
@@ -222,40 +233,4 @@
         <div class="editorial-right">
             <div class="carousel-container">
                 <div class="carousel-track" id="track">
-                    <img src="Tobi1.jpg" alt="Tobi 1">
-                    <img src="Tobi2.jpg" alt="Tobi 2">
-                    <img src="Tobi3.jpg" alt="Tobi 3">
-                    <img src="Tobi4.jpg" alt="Tobi 4">
-                    <img src="Tobi5.jpg" alt="Tobi 5">
-                </div>
-                
-                <div class="nav-wrapper">
-                    <button class="carousel-btn" onclick="moveSlide(-1)">&#8592;</button>
-                    <button class="carousel-btn" onclick="moveSlide(1)">&#8594;</button>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section class="rsvp-section">
-        <h2>Zusage (RSVP)</h2>
-        <p>Wir bitten um eure Rückmeldung bis zum gewünschten Datum.</p>
-    </section>
-
-    <script>
-        let currentIndex = 0;
-        const track = document.getElementById('track');
-        const slides = document.querySelectorAll('.carousel-track img');
-
-        function moveSlide(direction) {
-            currentIndex += direction;
-            if (currentIndex < 0) currentIndex = slides.length - 1;
-            if (currentIndex >= slides.length) currentIndex = 0;
-            
-            const offset = currentIndex * -100;
-            track.style.transform = `translateX(${offset}%)`;
-        }
-    </script>
-
-</body>
-</html>
+                    <img src="Tobi1.jpg" alt="Tobi 1
