@@ -15,13 +15,13 @@
             --editorial-bg: #d9b99b; 
         }
 
+        /* WICHTIG: Kein overflow-x: hidden mehr hier! */
         body, html {
             margin: 0;
             padding: 0;
             font-family: var(--text-font);
             color: #4a4a4a;
             scroll-behavior: smooth;
-            overflow-x: hidden;
         }
 
         /* --- HERO --- */
@@ -67,7 +67,7 @@
             display: flex;
             height: 100vh;
             width: 100%;
-            overflow: hidden;
+            overflow: hidden; /* Verhindert hier lokales Überschneiden */
         }
 
         .editorial-bg-title {
@@ -78,7 +78,7 @@
             font-size: 15vw;
             color: #3c5096;
             opacity: 0.15;
-            z-index: 6; /* Deine Korrektur */
+            z-index: 1; 
             white-space: nowrap;
             pointer-events: none;
         }
@@ -90,7 +90,7 @@
             flex-direction: column;
             justify-content: flex-end;
             padding: 0 5% 10% 10%;
-            z-index: 5; /* Deine Korrektur */
+            z-index: 5; 
         }
 
         .editorial-left-content { max-width: 400px; }
@@ -112,58 +112,59 @@
         .carousel-btn { width: 60px; height: 60px; border: 1px solid #3c5096; border-radius: 50%; background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: #3c5096; cursor: pointer; display: flex; align-items: center; justify-content: center; pointer-events: auto; transition: all 0.3s; font-size: 1.5rem; }
         .carousel-btn:hover { background: #3c5096; color: white; }
 
-        /* --- SECTION 4: DAS INTERAKTIVE GESCHENK (NEU) --- */
+        /* --- SECTION 4: DAS GESCHENK (KORRIGIERT & SKALIERT) --- */
         .gift-outer-container {
-    height: 250vh; /* Viel Platz zum Scrollen für die Animation */
-    background-color: white;
-    position: relative;
-}
+            height: 200vh; /* Genug Platz für die Animation beim Scrollen */
+            background-color: white;
+            position: relative;
+        }
 
-.gift-sticky-wrapper {
-    position: sticky;
-    top: 0;
-    height: 100px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
+        .gift-sticky-wrapper {
+            position: sticky; /* Funktioniert jetzt, da overflow-x: hidden weg ist! */
+            top: 0;
+            height: 100vh; /* Nimmt den exakten Bildschirm ein */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
 
-.gift-box-container {
-    position: relative;
-    width: 500px; /* Größe der Geschenkbilder */
-    height: 400px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+        /* Der Container skaliert sich automatisch anhand der present-bottom.jpg */
+        .gift-box-container {
+            position: relative;
+            width: 400px; /* Grundgröße des Geschenks */
+            max-width: 90%; /* Verhindert Übergröße auf Handys */
+            margin-bottom: 30px;
+        }
 
-/* Unterteil des Geschenks */
-.present-bottom {
-    position: absolute;
-    width: 100%;
-    z-index: 2;
-}
+        /* Unterteil: Bestimmt die Höhe des Pakets */
+        .present-bottom {
+            width: 100%;
+            height: auto;
+            display: block; /* Sehr wichtig für flüssiges Layout */
+            z-index: 2;
+            position: relative;
+        }
 
-        /* Deckel des Geschenks */
-        /* Deckel des Geschenks */
+        /* Deckel: Ist breiter und sitzt perfekt auf dem Boden auf */
         .present-top {
             position: absolute;
-            width: 120%; /* Wir erhöhen den Prozentsatz für eine bessere optische Abdeckung */
-            z-index: 3;
-            bottom: 100px; /* Wir erhöhen den bottom-Wert, um den Deckel höher zu positionieren */
+            width: 120%; /* 20% breiter als der Boden */
+            left: -10%; /* Zentriert den breiteren Deckel */
+            bottom: 60%; /* Startet auf der oberen Kante der Kiste */
+            z-index: 4;
             transform-origin: center bottom;
         }
 
-        /* Der Text IM Geschenk (wird enthüllt) */
+        /* Der Text IM Geschenk (fliegt hoch) */
         .gift-reveal-content {
             position: absolute;
-            z-index: 1;
+            top: -20%; /* Zentriert ihn ca. im oberen Bereich der Schachtel */
+            left: 0;
+            width: 100%;
             text-align: center;
+            z-index: 3; /* Hinter dem Deckel, aber im Vordergrund */
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s;
         }
 
         .gift-reveal-content h2 {
@@ -173,21 +174,15 @@
             margin: 0;
         }
 
-        /* Text UNTER dem Geschenk */
+        /* Der feste Text UNTER dem Geschenk */
         .gift-footer-text {
-            margin-top: 50px;
             text-align: center;
             max-width: 600px;
-            opacity: 0; /* Erscheint erst am Ende */
-            transition: opacity 0.8s;
+            opacity: 0;
+            transform: translateY(20px);
+            padding: 0 20px;
         }
 
-        /* --- RESPONSIVE GIFT --- */
-        /* --- RESPONSIVE GIFT --- */
-        @media (max-width: 600px) {
-            .gift-box-container { width: 300px; height: 250px; }
-            .present-top { bottom: 70px; width: 120%; } /* Auch hier erhöhen wir bottom und width */
-        }
     </style>
 </head>
 <body>
@@ -235,21 +230,25 @@
         </div>
     </section>
 
+    <!-- NEUES, PERFEKTIONIERTES GESCHENK -->
     <section class="gift-outer-container" id="gift-trigger">
         <div class="gift-sticky-wrapper">
             
             <div class="gift-box-container">
+                <!-- Text IM Geschenk -->
                 <div class="gift-reveal-content" id="reveal-text">
                     <h2>Überraschung!</h2>
-                    <p>Hier steht eure eigentliche Botschaft oder das Geschenk.</p>
+                    <p style="font-weight: bold; color: #4a4a4a; background: rgba(255,255,255,0.8); border-radius: 10px; padding: 5px;">Ein Gutschein für euch</p>
                 </div>
 
-                <img src="present_top.png" alt="Deckel" class="present-top" id="lid">
-                <img src="present_bottom.png" alt="Boden" class="present-bottom">
+                <!-- Die beiden neuen JPG Bilder -->
+                <img src="present_top.jpg" alt="Deckel" class="present-top" id="lid">
+                <img src="present_bottom.jpg" alt="Boden" class="present-bottom">
             </div>
 
+            <!-- Text UNTER dem Geschenk -->
             <div class="gift-footer-text" id="footer-text">
-                <h3 style="font-family: var(--script-font); font-size: 2.5rem; color: var(--accent-color); margin-bottom: 10px;">Ein kleines Dankeschön</h3>
+                <h3 style="font-family: var(--script-font); font-size: 2.5rem; color: var(--accent-color); margin-bottom: 10px; margin-top: 0;">Ein kleines Dankeschön</h3>
                 <p>Wir hoffen, diese kleine digitale Überraschung hat euch ein Lächeln ins Gesicht gezaubert!</p>
             </div>
 
@@ -270,7 +269,7 @@
             track.style.transform = `translateX(${currentIndex * -100}%)`;
         }
 
-        // --- GESCHENK SCROLL LOGIK ---
+        // --- PRÄZISIERTE GESCHENK-ANIMATION ---
         window.addEventListener('scroll', () => {
             const giftSection = document.getElementById('gift-trigger');
             const lid = document.getElementById('lid');
@@ -278,35 +277,44 @@
             const footerText = document.getElementById('footer-text');
 
             const sectionRect = giftSection.getBoundingClientRect();
-            const sectionHeight = giftSection.offsetHeight;
             
-            // Berechnung des Fortschritts innerhalb der Sektion (0 bis 1)
-            // Wir fangen an zu zählen, sobald die Sektion den oberen Rand erreicht
-            let progress = -sectionRect.top / (sectionHeight - window.innerHeight);
+            // Berechnung: Max. Scrollweg ist Container-Höhe minus Fensterhöhe
+            const maxScroll = giftSection.offsetHeight - window.innerHeight;
+            let currentScroll = -sectionRect.top;
+            
+            let progress = currentScroll / maxScroll;
             progress = Math.max(0, Math.min(1, progress));
 
-            // 1. Deckel bewegen (nach oben und leicht kippen)
-            const moveUp = progress * 500; // 500px nach oben
-            const rotate = progress * -20; // 20 Grad kippen
-            const fadeOut = 1 - (progress * 1.5); // Deckel wird schneller unsichtbar
+            // 1. Deckel fliegt hoch
+            const moveUp = progress * (window.innerHeight * 0.5); // Deckel fliegt bis zur Hälfte des Bildschirms
+            const rotate = progress * -10; // Leichte Drehung nach hinten
             
             lid.style.transform = `translateY(-${moveUp}px) rotate(${rotate}deg)`;
-            lid.style.opacity = Math.max(0, fadeOut);
+            
+            // Deckel verblasst erst sehr spät (ab 60% Fortschritt)
+            if(progress > 0.6) {
+                lid.style.opacity = 1 - ((progress - 0.6) * 2.5);
+            } else {
+                lid.style.opacity = 1;
+            }
 
-            // 2. Text im Geschenk enthüllen
-            if (progress > 0.3) {
-                revealText.style.opacity = (progress - 0.3) * 2;
-                revealText.style.transform = `translateY(0)`;
+            // 2. Text im Geschenk (schiebt sich hoch)
+            if (progress > 0.15) {
+                let textOpacity = (progress - 0.15) * 3;
+                revealText.style.opacity = Math.min(1, textOpacity);
+                revealText.style.transform = `translateY(-${progress * 80}px)`; 
             } else {
                 revealText.style.opacity = 0;
                 revealText.style.transform = `translateY(20px)`;
             }
 
-            // 3. Footer Text ganz am Ende einblenden
-            if (progress > 0.8) {
-                footerText.style.opacity = 1;
+            // 3. Footer Text unten (blendet am Ende sanft ein)
+            if (progress > 0.5) {
+                footerText.style.opacity = (progress - 0.5) * 2;
+                footerText.style.transform = `translateY(0)`;
             } else {
                 footerText.style.opacity = 0;
+                footerText.style.transform = `translateY(20px)`;
             }
         });
     </script>
