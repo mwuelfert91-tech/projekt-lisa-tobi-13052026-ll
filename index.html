@@ -147,11 +147,12 @@
         }
 
         /* Deckel des Geschenks */
+        /* Deckel des Geschenks */
         .present-top {
             position: absolute;
-            width: 104%; /* Etwas breiter als der Boden */
+            width: 120%; /* Wir erhöhen den Prozentsatz für eine bessere optische Abdeckung */
             z-index: 3;
-            bottom: 60px; /* Startposition auf dem Boden */
+            bottom: 100px; /* Wir erhöhen den bottom-Wert, um den Deckel höher zu positionieren */
             transform-origin: center bottom;
         }
 
@@ -182,9 +183,10 @@
         }
 
         /* --- RESPONSIVE GIFT --- */
+        /* --- RESPONSIVE GIFT --- */
         @media (max-width: 600px) {
             .gift-box-container { width: 300px; height: 250px; }
-            .present-top { bottom: 40px; }
+            .present-top { bottom: 70px; width: 120%; } /* Auch hier erhöhen wir bottom und width */
         }
     </style>
 </head>
