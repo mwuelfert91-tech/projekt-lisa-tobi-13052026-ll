@@ -8,11 +8,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
     
     <style>
-        /* --- GRUNDEINSTELLUNGEN --- */
         :root {
             --text-font: 'Montserrat', sans-serif;
             --script-font: 'Great Vibes', cursive;
             --accent-color: #a37c68;
+            --editorial-bg: #d9b99b; /* Der Erdton von der rechten Seite der Vorlage */
         }
 
         body, html {
@@ -21,9 +21,10 @@
             font-family: var(--text-font);
             color: #4a4a4a;
             scroll-behavior: smooth;
+            overflow-x: hidden;
         }
 
-        /* --- STARTBEREICH (HERO) --- */
+        /* --- HERO --- */
         .hero {
             position: relative;
             height: 100vh;
@@ -33,16 +34,9 @@
             align-items: center;
             text-align: center;
             color: white;
-            /* Dein Bild: mayrhofen_background.jpg */
             background: linear-gradient(rgba(105, 80, 80, 0.4), rgba(105, 80, 80, 0.6)), 
                         url('mayrhofen_background.jpg') no-repeat center center/cover;
             background-color: #8b7369; 
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
         }
 
         .title {
@@ -53,13 +47,7 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
-        .details-hero {
-            font-size: 1.1rem;
-            margin-top: 15px;
-            line-height: 1.6;
-        }
-
-        /* --- 2. ABSCHNITT: BILD LINKS, TEXT RECHTS --- */
+        /* --- SECTION 2: TOBI & LISA --- */
         .split-section {
             padding: 80px 10%;
             display: flex;
@@ -68,75 +56,138 @@
             gap: 50px;
             background-color: white;
         }
+        .split-image { flex: 1; max-width: 500px; }
+        .split-image img { width: 100%; height: auto; }
+        .split-text { flex: 1; text-align: left; }
+        .split-text h2 { font-family: var(--script-font); font-size: 4.5rem; color: var(--accent-color); font-weight: normal; margin-bottom: 20px; }
 
-        .split-image {
-            flex: 1;
-            max-width: 500px;
-        }
-
-        .split-image img {
+        /* --- SECTION 3: EDITORIAL LOCATION (NEU) --- */
+        .editorial-section {
+            position: relative;
+            display: flex;
+            min-height: 100vh;
             width: 100%;
-            height: auto;
-            display: block;
         }
 
-        .split-text {
+        /* Die riesige Überschrift im Hintergrund */
+        .editorial-bg-title {
+            position: absolute;
+            top: 50px;
+            left: 5%;
+            font-family: var(--script-font);
+            font-size: 12vw; /* Dynamische Größe je nach Bildschirmbreite */
+            color: rgba(60, 80, 150, 0.15); /* Dezentes Blau/Grau wie in der Vorlage */
+            z-index: 1;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        /* Linke Spalte: Weiß & Fester Text */
+        .editorial-left {
             flex: 1;
-            text-align: left;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 10% 5% 10% 10%;
+            z-index: 2;
         }
 
-        .split-text h2 {
-            font-family: var(--script-font);
-            font-size: 4.5rem;
-            color: var(--accent-color);
-            margin: 0 0 20px 0;
-            font-weight: normal;
+        .editorial-left-content {
+            max-width: 400px;
         }
 
-        .split-text p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin: 0;
-        }
-
-        /* --- ALLGEMEINE ABSCHNITTE --- */
-        .section {
-            padding: 100px 20px;
-            text-align: center;
-        }
-
-        .bg-light {
-            background-color: #f9f6f4;
-        }
-
-        .section h2 {
-            font-family: var(--script-font);
-            font-size: 4rem;
-            color: var(--accent-color);
-            margin-top: 0;
+        .editorial-left-content h3 {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            color: #3c5096; /* Blau-Ton aus der Vorlage */
             margin-bottom: 20px;
-            font-weight: normal;
         }
 
-        .section p {
-            max-width: 600px;
-            margin: 0 auto;
+        .editorial-left-content p {
             line-height: 1.8;
+            font-size: 1rem;
         }
 
-        /* --- HANDY-OPTIMIERUNG --- */
+        /* Rechte Spalte: Farbe & Karussell */
+        .editorial-right {
+            flex: 1;
+            background-color: var(--editorial-bg);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        /* Karussell Container */
+        .carousel-container {
+            width: 80%;
+            height: 70%;
+            position: relative;
+            overflow: hidden;
+            border-radius: 5px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 100%;
+        }
+
+        .carousel-track img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        /* Karussell Buttons (Kreise aus der Vorlage) */
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            border: 1px solid #3c5096;
+            border-radius: 50%;
+            background: transparent;
+            color: #3c5096;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: all 0.3s;
+        }
+
+        .carousel-btn:hover { background: #3c5096; color: white; }
+        .prev { left: -70px; }
+        .next { right: -70px; }
+
+        /* Navigation Kreise Wrapper */
+        .nav-wrapper {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .nav-wrapper button { pointer-events: auto; }
+
+        /* --- RSVP --- */
+        .rsvp-section { padding: 100px 20px; text-align: center; }
+        .rsvp-section h2 { font-family: var(--script-font); font-size: 4rem; color: var(--accent-color); font-weight: normal; }
+
+        /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
-            .split-section {
-                flex-direction: column;
-                text-align: center;
-                padding: 60px 20px;
-            }
-            .split-text {
-                text-align: center;
-            }
-            .title { font-size: 4rem; }
-            .split-text h2 { font-size: 3.5rem; }
-            .section h2 { font-size: 3rem; }
+            .editorial-section { flex-direction: column; }
+            .editorial-left, .editorial-right { padding: 60px 10%; flex: none; min-height: 50vh; }
+            .editorial-bg-title { font-size: 20vw; top: 20px; }
+            .carousel-btn { width: 40px; height: 40px; }
+            .prev { left: 10px; top: auto; bottom: 20px; transform: none; }
+            .next { right: 10px; top: auto; bottom: 20px; transform: none; }
         }
     </style>
 </head>
@@ -144,12 +195,9 @@
 
     <header class="hero">
         <div class="hero-content">
-            <p class="subtitle">Wir freuen uns auf unsere Hochzeit</p>
+            <p style="letter-spacing: 2px;">Wir freuen uns auf unsere Hochzeit</p>
             <h1 class="title">Lisa & Tobi</h1>
-            <p class="details-hero">
-                Samstag, 13. Mai 2026<br>
-                Mayrhofen
-            </p>
+            <p>Samstag, 13. Mai 2026<br>Mayrhofen</p>
         </div>
     </header>
 
@@ -159,22 +207,64 @@
         </div>
         <div class="split-text">
             <h2>Gemeinsam ins Glück</h2>
-            <p>
-                Hier kannst du nun deinen persönlichen Text einfügen. 
-                Das Bild und dieser Textblock halten sich automatisch die Waage.
-            </p>
+            <p>Hier steht euer persönlicher Text...</p>
         </div>
     </section>
 
-    <section class="section bg-light">
-        <h2>Die Location</h2>
-        <p>Details zur Anfahrt oder Übernachtungsmöglichkeiten in Mayrhofen finden hier ihren Platz.</p>
+    <section class="editorial-section">
+        <div class="editorial-bg-title">Die Location</div>
+
+        <div class="editorial-left">
+            <div class="editorial-left-content">
+                <h3>Unsere Location</h3>
+                <p>
+                    Ein Lifestyle unterstützt durch die Berge, durch gemeinsame Momente und durch die Liebe zum Detail. 
+                    Hier in Mayrhofen feiern wir den Beginn unseres nächsten Kapitels.
+                </p>
+            </div>
+        </div>
+
+        <div class="editorial-right">
+            <div class="carousel-container">
+                <div class="carousel-track" id="track">
+                    <img src="Tobi1.jpg" alt="Tobi 1">
+                    <img src="Tobi2.jpg" alt="Tobi 2">
+                    <img src="Tobi3.jpg" alt="Tobi 3">
+                    <img src="Tobi4.jpg" alt="Tobi 4">
+                    <img src="Tobi5.jpg" alt="Tobi 5">
+                </div>
+            </div>
+            
+            <div class="nav-wrapper">
+                <button class="carousel-btn prev" onclick="moveSlide(-1)">&#8592;</button>
+                <button class="carousel-btn next" onclick="moveSlide(1)">&#8594;</button>
+            </div>
+        </div>
     </section>
     
-    <section class="section">
+    <section class="rsvp-section">
         <h2>Zusage (RSVP)</h2>
         <p>Wir bitten um eure Rückmeldung bis zum gewünschten Datum.</p>
     </section>
+
+    <script>
+        let currentIndex = 0;
+        const track = document.getElementById('track');
+        const slides = document.querySelectorAll('.carousel-track img');
+
+        function moveSlide(direction) {
+            currentIndex += direction;
+            
+            if (currentIndex < 0) {
+                currentIndex = slides.length - 1;
+            } else if (currentIndex >= slides.length) {
+                currentIndex = 0;
+            }
+            
+            const offset = currentIndex * -100;
+            track.style.transform = `translateX(${offset}%)`;
+        }
+    </script>
 
 </body>
 </html>
