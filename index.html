@@ -70,7 +70,6 @@
             overflow: hidden;
         }
 
-        /* Hintergrundschrift - Liegt ganz unten */
         .editorial-bg-title {
             position: absolute;
             top: 5%;
@@ -79,7 +78,7 @@
             font-size: 15vw;
             color: #3c5096;
             opacity: 0.15;
-            z-index: 6; /* Ganz unten */
+            z-index: 6; /* Deine Korrektur */
             white-space: nowrap;
             pointer-events: none;
         }
@@ -91,104 +90,101 @@
             flex-direction: column;
             justify-content: flex-end;
             padding: 0 5% 10% 10%;
-            z-index: 5; /* Über der Hintergrundschrift */
+            z-index: 5; /* Deine Korrektur */
         }
 
-        .editorial-left-content {
-            max-width: 400px;
-        }
-
-        .editorial-left-content h3 {
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.9rem;
-            color: #3c5096;
-            margin-bottom: 20px;
-        }
-
-        .editorial-left-content p {
-            line-height: 1.8;
-            font-size: 1rem;
-        }
+        .editorial-left-content { max-width: 400px; }
+        .editorial-left-content h3 { text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; color: #3c5096; margin-bottom: 20px; }
+        .editorial-left-content p { line-height: 1.8; font-size: 1rem; }
 
         .editorial-right {
             flex: 1;
             background-color: var(--editorial-bg);
             position: relative;
-            z-index: 5; /* Über der Hintergrundschrift */
+            z-index: 5;
         }
 
-        /* Karussell Container füllt die komplette rechte Spalte */
-        .carousel-container {
-            width: 100%;
-            height: 100%;
+        .carousel-container { width: 100%; height: 100%; position: relative; overflow: hidden; z-index: 10; }
+        .carousel-track { display: flex; transition: transform 0.6s cubic-bezier(0.45, 0, 0.55, 1); height: 100%; width: 100%; }
+        .carousel-track img { width: 100%; height: 100%; object-fit: cover; flex-shrink: 0; }
+
+        .nav-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; box-sizing: border-box; pointer-events: none; z-index: 20; }
+        .carousel-btn { width: 60px; height: 60px; border: 1px solid #3c5096; border-radius: 50%; background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: #3c5096; cursor: pointer; display: flex; align-items: center; justify-content: center; pointer-events: auto; transition: all 0.3s; font-size: 1.5rem; }
+        .carousel-btn:hover { background: #3c5096; color: white; }
+
+        /* --- SECTION 4: DAS INTERAKTIVE GESCHENK (NEU) --- */
+        .gift-outer-container {
+            height: 250vh; /* Viel Platz zum Scrollen für die Animation */
+            background-color: white;
             position: relative;
-            overflow: hidden;
-            z-index: 10;
         }
 
-        .carousel-track {
-            display: flex;
-            transition: transform 0.6s cubic-bezier(0.45, 0, 0.55, 1);
-            height: 100%;
-            width: 100%;
-        }
-
-        .carousel-track img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            flex-shrink: 0;
-        }
-
-        /* Karussell Navigation */
-        .nav-wrapper {
-            position: absolute;
+        .gift-sticky-wrapper {
+            position: sticky;
             top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            height: 100vh;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-            box-sizing: border-box;
-            pointer-events: none;
-            z-index: 20; /* Über den Bildern */
-        }
-
-        .carousel-btn {
-            width: 60px;
-            height: 60px;
-            border: 1px solid #3c5096;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(10px);
-            color: #3c5096;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
-            pointer-events: auto;
-            transition: all 0.3s;
-            font-size: 1.5rem;
+            align-items: center;
+            overflow: hidden;
         }
 
-        .carousel-btn:hover {
-            background: #3c5096;
-            color: white;
+        .gift-box-container {
+            position: relative;
+            width: 500px; /* Größe der Geschenkbilder */
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* --- RSVP --- */
-        .rsvp-section { padding: 100px 20px; text-align: center; background: #fff; }
-        .rsvp-section h2 { font-family: var(--script-font); font-size: 4rem; color: var(--accent-color); font-weight: normal; }
+        /* Unterteil des Geschenks */
+        .present-bottom {
+            position: absolute;
+            width: 100%;
+            z-index: 2;
+        }
 
-        /* --- RESPONSIVE --- */
-        @media (max-width: 900px) {
-            .editorial-section { flex-direction: column; height: auto; }
-            .editorial-left { padding: 120px 10% 60px 10%; min-height: 40vh; }
-            .editorial-right { height: 60vh; }
-            .editorial-bg-title { font-size: 25vw; top: 40px; }
+        /* Deckel des Geschenks */
+        .present-top {
+            position: absolute;
+            width: 104%; /* Etwas breiter als der Boden */
+            z-index: 3;
+            bottom: 60px; /* Startposition auf dem Boden */
+            transform-origin: center bottom;
+        }
+
+        /* Der Text IM Geschenk (wird enthüllt) */
+        .gift-reveal-content {
+            position: absolute;
+            z-index: 1;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s;
+        }
+
+        .gift-reveal-content h2 {
+            font-family: var(--script-font);
+            font-size: 4rem;
+            color: var(--accent-color);
+            margin: 0;
+        }
+
+        /* Text UNTER dem Geschenk */
+        .gift-footer-text {
+            margin-top: 50px;
+            text-align: center;
+            max-width: 600px;
+            opacity: 0; /* Erscheint erst am Ende */
+            transition: opacity 0.8s;
+        }
+
+        /* --- RESPONSIVE GIFT --- */
+        @media (max-width: 600px) {
+            .gift-box-container { width: 300px; height: 250px; }
+            .present-top { bottom: 40px; }
         }
     </style>
 </head>
@@ -204,7 +200,7 @@
 
     <section class="split-section">
         <div class="split-image">
-            <img src="TobiLisa.png" alt="Tobi & Lisa Illustration">
+            <img src="TobiLisa.jpg" alt="Tobi & Lisa Illustration">
         </div>
         <div class="split-text">
             <h2>Gemeinsam ins Glück</h2>
@@ -214,17 +210,12 @@
 
     <section class="editorial-section">
         <div class="editorial-bg-title">Die Location</div>
-
         <div class="editorial-left">
             <div class="editorial-left-content">
                 <h3>Unsere Location</h3>
-                <p>
-                    Ein Lifestyle unterstützt durch die Berge, durch gemeinsame Momente und durch die Liebe zum Detail. 
-                    Hier in Mayrhofen feiern wir den Beginn unseres nächsten Kapitels.
-                </p>
+                <p>Ein Lifestyle unterstützt durch die Berge, durch gemeinsame Momente und durch die Liebe zum Detail.</p>
             </div>
         </div>
-
         <div class="editorial-right">
             <div class="carousel-container">
                 <div class="carousel-track" id="track">
@@ -234,7 +225,6 @@
                     <img src="Tobi4.jpg" alt="Tobi 4">
                     <img src="Tobi5.jpg" alt="Tobi 5">
                 </div>
-                
                 <div class="nav-wrapper">
                     <button class="carousel-btn" onclick="moveSlide(-1)">&#8592;</button>
                     <button class="carousel-btn" onclick="moveSlide(1)">&#8594;</button>
@@ -242,33 +232,81 @@
             </div>
         </div>
     </section>
-    
-    <section class="rsvp-section">
-        <h2>Zusage (RSVP)</h2>
-        <p>Wir bitten um eure Rückmeldung bis zum gewünschten Datum.</p>
+
+    <section class="gift-outer-container" id="gift-trigger">
+        <div class="gift-sticky-wrapper">
+            
+            <div class="gift-box-container">
+                <div class="gift-reveal-content" id="reveal-text">
+                    <h2>Überraschung!</h2>
+                    <p>Hier steht eure eigentliche Botschaft oder das Geschenk.</p>
+                </div>
+
+                <img src="present_top.png" alt="Deckel" class="present-top" id="lid">
+                <img src="present_bottom.png" alt="Boden" class="present-bottom">
+            </div>
+
+            <div class="gift-footer-text" id="footer-text">
+                <h3 style="font-family: var(--script-font); font-size: 2.5rem; color: var(--accent-color); margin-bottom: 10px;">Ein kleines Dankeschön</h3>
+                <p>Wir hoffen, diese kleine digitale Überraschung hat euch ein Lächeln ins Gesicht gezaubert!</p>
+            </div>
+
+        </div>
     </section>
 
     <script>
+        // --- Karussell Logik ---
         let currentIndex = 0;
         const track = document.getElementById('track');
-        // Wir suchen die Bilder erst, wenn das Skript läuft
         const slides = document.querySelectorAll('.carousel-track img');
-
         function moveSlide(direction) {
             const totalSlides = slides.length;
             if (totalSlides === 0) return;
-
             currentIndex += direction;
-            
-            if (currentIndex < 0) {
-                currentIndex = totalSlides - 1;
-            } else if (currentIndex >= totalSlides) {
-                currentIndex = 0;
-            }
-            
-            const offset = currentIndex * -100;
-            track.style.transform = `translateX(${offset}%)`;
+            if (currentIndex < 0) currentIndex = totalSlides - 1;
+            else if (currentIndex >= totalSlides) currentIndex = 0;
+            track.style.transform = `translateX(${currentIndex * -100}%)`;
         }
+
+        // --- GESCHENK SCROLL LOGIK ---
+        window.addEventListener('scroll', () => {
+            const giftSection = document.getElementById('gift-trigger');
+            const lid = document.getElementById('lid');
+            const revealText = document.getElementById('reveal-text');
+            const footerText = document.getElementById('footer-text');
+
+            const sectionRect = giftSection.getBoundingClientRect();
+            const sectionHeight = giftSection.offsetHeight;
+            
+            // Berechnung des Fortschritts innerhalb der Sektion (0 bis 1)
+            // Wir fangen an zu zählen, sobald die Sektion den oberen Rand erreicht
+            let progress = -sectionRect.top / (sectionHeight - window.innerHeight);
+            progress = Math.max(0, Math.min(1, progress));
+
+            // 1. Deckel bewegen (nach oben und leicht kippen)
+            const moveUp = progress * 500; // 500px nach oben
+            const rotate = progress * -20; // 20 Grad kippen
+            const fadeOut = 1 - (progress * 1.5); // Deckel wird schneller unsichtbar
+            
+            lid.style.transform = `translateY(-${moveUp}px) rotate(${rotate}deg)`;
+            lid.style.opacity = Math.max(0, fadeOut);
+
+            // 2. Text im Geschenk enthüllen
+            if (progress > 0.3) {
+                revealText.style.opacity = (progress - 0.3) * 2;
+                revealText.style.transform = `translateY(0)`;
+            } else {
+                revealText.style.opacity = 0;
+                revealText.style.transform = `translateY(20px)`;
+            }
+
+            // 3. Footer Text ganz am Ende einblenden
+            if (progress > 0.8) {
+                footerText.style.opacity = 1;
+            } else {
+                footerText.style.opacity = 0;
+            }
+        });
     </script>
 
 </body>
