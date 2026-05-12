@@ -8,11 +8,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
     
     <style>
-        /* --- GRUNDEINSTELLUNGEN --- */
         :root {
             --text-font: 'Montserrat', sans-serif;
             --script-font: 'Great Vibes', cursive;
             --accent-color: #a37c68;
+            --bg-light: #f9f6f4;
+            --radius: 20px; /* Die typischen Apple-abgerundeten Ecken */
         }
 
         body, html {
@@ -23,7 +24,7 @@
             scroll-behavior: smooth;
         }
 
-        /* --- STARTBEREICH (HERO) --- */
+        /* --- HERO --- */
         .hero {
             position: relative;
             height: 100vh;
@@ -33,16 +34,9 @@
             align-items: center;
             text-align: center;
             color: white;
-            /* Hintergrundbild aus der vorherigen Iteration */
             background: linear-gradient(rgba(105, 80, 80, 0.4), rgba(105, 80, 80, 0.6)), 
                         url('mayrhofen_background.jpg') no-repeat center center/cover;
             background-color: #8b7369; 
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
         }
 
         .title {
@@ -53,80 +47,109 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
-        .details-hero {
-            font-size: 1.1rem;
-            margin-top: 15px;
-            line-height: 1.6;
-        }
-
-        /* --- NEUER ABSCHNITT: BILD LINKS, TEXT RECHTS --- */
+        /* --- SPLIT SECTION (Tobi & Lisa) --- */
         .split-section {
             padding: 80px 10%;
             display: flex;
-            align-items: center; /* Vertikal zentrieren */
+            align-items: center;
             justify-content: center;
             gap: 50px;
             background-color: white;
         }
 
-        .split-image {
-            flex: 1;
-            max-width: 500px;
-        }
-
-        .split-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .split-text {
-            flex: 1;
-            text-align: left;
-        }
-
+        .split-image { flex: 1; max-width: 500px; }
+        .split-image img { width: 100%; height: auto; }
+        .split-text { flex: 1; text-align: left; }
         .split-text h2 {
             font-family: var(--script-font);
             font-size: 4.5rem;
             color: var(--accent-color);
-            margin: 0 0 20px 0;
-            font-weight: normal;
-        }
-
-        .split-text p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin: 0;
-        }
-
-        /* --- WEITERE ABSCHNITTE --- */
-        .section {
-            padding: 100px 20px;
-            text-align: center;
-        }
-
-        .bg-light {
-            background-color: #f9f6f4;
-        }
-
-        .section h2 {
-            font-family: var(--script-font);
-            font-size: 4rem;
-            color: var(--accent-color);
-            margin-top: 0;
             margin-bottom: 20px;
             font-weight: normal;
         }
 
-        /* --- ANPASSUNG FÜR HANDYS --- */
+        /* --- COLLAGE SECTION (Variation 1) --- */
+        .collage-section {
+            padding: 100px 10%;
+            background-color: var(--bg-light);
+            text-align: center;
+        }
+
+        .collage-intro h2 {
+            font-family: var(--script-font);
+            font-size: 4rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            font-weight: normal;
+        }
+
+        .collage-intro p {
+            margin-bottom: 50px;
+            font-size: 1.1rem;
+            color: #777;
+        }
+
+        /* Das Apple-Style Grid */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 250px);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .grid-item {
+            background-color: #eee;
+            border-radius: var(--radius);
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .grid-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Layout-Logik für Variation 1 (Großes Zentrum) */
+        .item-1 { grid-column: span 1; grid-row: span 1; }
+        .item-2 { grid-column: span 2; grid-row: span 2; } /* Die große Fokus-Kachel */
+        .item-3 { grid-column: span 1; grid-row: span 1; }
+        .item-4 { grid-column: span 1; grid-row: span 1; }
+        .item-5 { grid-column: span 1; grid-row: span 1; }
+
+        /* --- RSVP SECTION --- */
+        .rsvp-section {
+            padding: 100px 20px;
+            text-align: center;
+            background: white;
+        }
+
+        .rsvp-section h2 {
+            font-family: var(--script-font);
+            font-size: 4rem;
+            color: var(--accent-color);
+            font-weight: normal;
+        }
+
+        /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
-            .split-section {
-                flex-direction: column; /* Stapeln auf Handys */
-                text-align: center;
-                padding: 60px 20px;
+            .split-section { flex-direction: column; text-align: center; }
+            .grid-container { 
+                grid-template-columns: 1fr; 
+                grid-template-rows: auto; 
             }
-            .split-text {
-                text-align: center;
+            .item-1, .item-2, .item-3, .item-4, .item-5 {
+                grid-column: span 1;
+                grid-row: auto;
+                height: 300px;
             }
             .title { font-size: 4rem; }
             .split-text h2 { font-size: 3.5rem; }
@@ -137,12 +160,9 @@
 
     <header class="hero">
         <div class="hero-content">
-            <p class="subtitle">Wir freuen uns auf unsere Hochzeit</p>
+            <p style="letter-spacing: 2px;">Wir freuen uns auf unsere Hochzeit</p>
             <h1 class="title">Lisa & Tobi</h1>
-            <p class="details-hero">
-                Samstag, 13. Mai 2026<br>
-                Mayrhofen
-            </p>
+            <p>Samstag, 13. Mai 2026<br>Mayrhofen</p>
         </div>
     </header>
 
@@ -152,21 +172,26 @@
         </div>
         <div class="split-text">
             <h2>Gemeinsam ins Glück</h2>
-            <p>
-                Hier kannst du nun deinen persönlichen Text einfügen. 
-                Da das Bild und dieser Textblock über "Flexbox" gesteuert werden, 
-                halten sie sich automatisch die Waage und sehen auf großen Bildschirmen 
-                nebeneinander sowie auf dem Handy untereinander perfekt aus.
-            </p>
+            <p>Ein kurzer Text über euch beide, eure Reise nach Mayrhofen oder was euch als Paar ausmacht.</p>
         </div>
     </section>
 
-    <section class="section bg-light">
-        <h2>Die Location</h2>
-        <p>Details zur Anfahrt oder Übernachtungsmöglichkeiten in Mayrhofen finden hier ihren Platz.</p>
+    <section class="collage-section">
+        <div class="collage-intro">
+            <h2>Die Location</h2>
+            <p>Ein kleiner Ausblick auf das wunderschöne Mayrhofen und wo wir feiern werden.</p>
+        </div>
+
+        <div class="grid-container">
+            <div class="grid-item item-1"><img src="photo1.jpg" alt="Mayrhofen 1"></div>
+            <div class="grid-item item-2"><img src="photo2.jpg" alt="Mayrhofen Hauptbild"></div>
+            <div class="grid-item item-3"><img src="photo3.jpg" alt="Mayrhofen 3"></div>
+            <div class="grid-item item-4"><img src="photo4.jpg" alt="Mayrhofen 4"></div>
+            <div class="grid-item item-5"><img src="photo5.jpg" alt="Mayrhofen 5"></div>
+        </div>
     </section>
     
-    <section class="section">
+    <section class="rsvp-section">
         <h2>Zusage (RSVP)</h2>
         <p>Wir bitten um eure Rückmeldung bis zum gewünschten Datum.</p>
     </section>
