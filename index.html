@@ -12,6 +12,7 @@
         :root {
             --text-font: 'Montserrat', sans-serif;
             --script-font: 'Great Vibes', cursive;
+            --accent-color: #a37c68;
         }
 
         body, html {
@@ -19,29 +20,28 @@
             padding: 0;
             font-family: var(--text-font);
             color: #4a4a4a;
+            scroll-behavior: smooth;
         }
 
         /* --- STARTBEREICH (HERO) --- */
         .hero {
             position: relative;
-            height: 100vh; /* 100% der Bildschirmhöhe */
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             color: white;
-            
-            /* HIER DEIN BILD EINFÜGEN */
+            /* Hintergrundbild aus der vorherigen Iteration */
             background: linear-gradient(rgba(105, 80, 80, 0.4), rgba(105, 80, 80, 0.6)), 
                         url('mayrhofen_background.jpg') no-repeat center center/cover;
-            
-            background-color: #8b7369; /* Platzhalter-Farbe */
+            background-color: #8b7369; 
         }
 
         .subtitle {
-            font-size: 1rem;
-            letter-spacing: 1.5px;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
             margin-bottom: 10px;
         }
 
@@ -53,17 +53,56 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
-        .details {
-            font-size: 1rem;
+        .details-hero {
+            font-size: 1.1rem;
             margin-top: 15px;
             line-height: 1.6;
         }
 
-        /* --- INHALTSBEREICHE ZUM SCROLLEN --- */
+        /* --- NEUER ABSCHNITT: BILD LINKS, TEXT RECHTS --- */
+        .split-section {
+            padding: 80px 10%;
+            display: flex;
+            align-items: center; /* Vertikal zentrieren */
+            justify-content: center;
+            gap: 50px;
+            background-color: white;
+        }
+
+        .split-image {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .split-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .split-text {
+            flex: 1;
+            text-align: left;
+        }
+
+        .split-text h2 {
+            font-family: var(--script-font);
+            font-size: 4.5rem;
+            color: var(--accent-color);
+            margin: 0 0 20px 0;
+            font-weight: normal;
+        }
+
+        .split-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        /* --- WEITERE ABSCHNITTE --- */
         .section {
             padding: 100px 20px;
             text-align: center;
-            min-height: 60vh;
         }
 
         .bg-light {
@@ -73,23 +112,24 @@
         .section h2 {
             font-family: var(--script-font);
             font-size: 4rem;
-            color: #a37c68;
+            color: var(--accent-color);
             margin-top: 0;
             margin-bottom: 20px;
             font-weight: normal;
         }
 
-        .section p {
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.8;
-        }
-
         /* --- ANPASSUNG FÜR HANDYS --- */
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
+            .split-section {
+                flex-direction: column; /* Stapeln auf Handys */
+                text-align: center;
+                padding: 60px 20px;
+            }
+            .split-text {
+                text-align: center;
+            }
             .title { font-size: 4rem; }
-            .section { padding: 60px 20px; }
-            .section h2 { font-size: 3rem; }
+            .split-text h2 { font-size: 3.5rem; }
         }
     </style>
 </head>
@@ -97,35 +137,38 @@
 
     <header class="hero">
         <div class="hero-content">
-            <p class="subtitle">Ich wünsche euch beiden</p>
-            
+            <p class="subtitle">Wir freuen uns auf unsere Hochzeit</p>
             <h1 class="title">Lisa & Tobi</h1>
-            
-            <p class="details">
-                an diesem wunderschönen Mittowch den 13. Mai 2026<br>
-                alles liebe zu euer Hochzeit!
-                Auf eine schöne Zunkunft!
+            <p class="details-hero">
+                Samstag, 13. Mai 2026<br>
+                Mayrhofen
             </p>
         </div>
     </header>
 
-    <section class="section">
-        <h2>Der Ablauf</h2>
-        <p>14:00 Uhr - Kirchliche Trauung<br>
-           15:30 Uhr - Sektempfang an der Location<br>
-           18:00 Uhr - Abendessen<br>
-           20:00 Uhr - Party</p>
+    <section class="split-section">
+        <div class="split-image">
+            <img src="TobiLisa.png" alt="Tobi & Lisa Illustration">
+        </div>
+        <div class="split-text">
+            <h2>Gemeinsam ins Glück</h2>
+            <p>
+                Hier kannst du nun deinen persönlichen Text einfügen. 
+                Da das Bild und dieser Textblock über "Flexbox" gesteuert werden, 
+                halten sie sich automatisch die Waage und sehen auf großen Bildschirmen 
+                nebeneinander sowie auf dem Handy untereinander perfekt aus.
+            </p>
+        </div>
     </section>
 
     <section class="section bg-light">
         <h2>Die Location</h2>
-        <p>Hier könnt ihr die genaue Adresse eintragen, Hinweise zum Parken geben oder erklären, wo Gäste übernachten können.</p>
+        <p>Details zur Anfahrt oder Übernachtungsmöglichkeiten in Mayrhofen finden hier ihren Platz.</p>
     </section>
     
     <section class="section">
         <h2>Zusage (RSVP)</h2>
-        <p>Wir bitten um eure Zusage bis zum 01. März 2026.<br>
-        <i>(Hier könntest du später einen Link zu Google Forms oder Tally.so einfügen)</i></p>
+        <p>Wir bitten um eure Rückmeldung bis zum gewünschten Datum.</p>
     </section>
 
 </body>
