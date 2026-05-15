@@ -127,13 +127,14 @@
 .gift-sticky-wrapper {
     position: sticky;
     top: 0;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     /* WICHTIG: Mehr Platz nach oben für die Schleife */
-    padding-top: 25vh; 
+    padding-top: 10vh; 
+    padding-bottom: 5vh;
     box-sizing: border-box;
     /* DAS WAR DER FEHLER: Wir entfernen overflow: hidden, 
        damit die Schleife oben "herausragen" darf */
@@ -145,7 +146,8 @@
     width: 350px; 
     max-width: 80%;
     /* Verkleinert den Abstand zum Text, damit alles kompakter wird */
-    margin-bottom: 5px; 
+    margin-bottom: 20px; 
+    flex-shrink: 0;
 }
 
         .present-bottom {
@@ -186,6 +188,7 @@
     opacity: 0;
     transform: translateY(20px); 
     padding: 0 20px 20px 20px;
+    margin-bottom: 50px;
 }
 
         .modern-button {
@@ -216,6 +219,17 @@
             .editorial-bg-title { font-size: 25vw; top: 40px; }
             .title { font-size: 4rem; }
         }
+    @media (max-height: 700px) {
+    .gift-sticky-wrapper {
+        padding-top: 5vh;
+    }
+    .gift-box-container {
+        width: 250px; /* Macht das Geschenk kleiner, wenn die Höhe knapp wird */
+    }
+    .gift-reveal-content h2 {
+        font-size: 2.5rem;
+    }
+}
     </style>
 </head>
 <body>
